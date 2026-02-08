@@ -8683,11 +8683,35 @@
     "named": false
   },
   {
+    "type": ":after",
+    "named": false
+  },
+  {
     "type": ":culture",
     "named": false
   },
   {
+    "type": ":event",
+    "named": false
+  },
+  {
+    "type": ":format",
+    "named": false
+  },
+  {
+    "type": ":get",
+    "named": false
+  },
+  {
     "type": ":preventDefault",
+    "named": false
+  },
+  {
+    "type": ":preventDefault:stopPropagation",
+    "named": false
+  },
+  {
+    "type": ":set",
     "named": false
   },
   {

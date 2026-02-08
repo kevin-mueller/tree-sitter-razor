@@ -388,7 +388,7 @@ module.exports = grammar(CSHARP, {
         seq(
           choice(
             "attributes",
-            "bind",
+            seq("bind", optional(seq("-", $._identifier_token))), // @bind or @bind-Value
             "formname",
             token(prec(10, /on[a-z]+/i)),
             "key",
@@ -399,7 +399,20 @@ module.exports = grammar(CSHARP, {
       ),
 
     razor_attribute_modifier: (_) =>
-      choice(":culture", ":preventDefault", ":stopPropagation"),
+      choice(
+        // Bind modifiers (ASP.NET Core 8+)
+        ":get",
+        ":set",
+        ":after",
+        ":event",
+        ":format",
+        ":culture",
+        // Event modifiers
+        ":preventDefault",
+        ":stopPropagation",
+        // Chained modifiers
+        ":preventDefault:stopPropagation",
+      ),
 
     html_comment: ($) => seq("<!--", optional($._razor_comment_text), "-->"),
     _html_comment_text: (_) => repeat1(/.|\n|\r/),
@@ -416,7 +429,8 @@ module.exports = grammar(CSHARP, {
           choice(
             $.razor_explicit_expression,
             $.razor_implicit_expression,
-            prec.left(/[a-zA-Z0-9-:/\.=>(){}\s]+/),
+            // More permissive pattern to handle complex C# expressions
+            prec.left(/[a-zA-Z0-9-:/\.=>(){}\[\]<>,;?!+\-*/%&|^\s]+/),
           ),
         ),
         '"',
