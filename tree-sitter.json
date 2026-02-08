@@ -5,10 +5,11 @@
       "name": "razor",
       "path": ".",
       "scope": "source.razor",
-      "file-types": [".razor"],
+      "file-types": [
+        ".razor"
+      ],
       "injection-regex": "^razor$",
-      "highlights": "queries/highlights.scm",
-      "injections": "queries/injections.scm"
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
